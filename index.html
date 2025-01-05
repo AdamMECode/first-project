@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jackal Token Balance</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <h1>Jackal Token Balance</h1>
+  <form id="balance-form">
+    <label for="address">Enter your Jackal address:</label>
+    <input type="text" id="address" name="address">
+    <button type="submit">Get Balance</button>
+  </form>
+  <div id="balance"></div>
+
+  <script>
+    const form = document.getElementById('balance-form');
+    const addressInput = document.getElementById('address');
+    const balanceDiv = document.getElementById('balance');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const address = addressInput.value;
+      const response = await fetch(`http://localhost:3000/balance?address=${address}`);
+      const data = await response.json();
+      balanceDiv.innerText = `Your token balance is: ${data.balance}`;
+    });
+  </script>
+</body>
+</html>
